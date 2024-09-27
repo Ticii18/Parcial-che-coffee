@@ -1,17 +1,10 @@
 import "./style.css";
 
-// Obtener el formulario de inicio de sesión
 const $form = document.getElementById("login-form");
-
-// Añadir un evento de submit al formulario
 $form.addEventListener("submit", async (e) => {
-  // Evitar que el formulario recargue la página
   e.preventDefault();
 
-  // Crear un objeto FormData con los datos del formulario
   const formData = new FormData($form);
-
-  // Convertir el objeto FormData a un objeto plano
   const entries = Object.fromEntries(formData.entries());
 
   // Realizar una solicitud POST a la API de inicio de sesión
@@ -21,11 +14,23 @@ $form.addEventListener("submit", async (e) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(entries),
-  }).then((response) => {
+  }).then(async (response) => {
     if (response.ok) {
-      // ! REDIRIGIR AL USUARIO A LA PÁGINA PRINCIPAL
+      return response.json(); // Espera la respuesta JSON
     } else {
-      // ! MOSTRAR UN MENSAJE DE ERROR AL USUARIO
+      const data = await response.json();
+      // Mostrar un mensaje de error al usuario
+      alert(data.message || "Error al iniciar sesión. Verifica tus credenciales.");
     }
+  }).then((data) => {
+    // Almacenar el ID del usuario en localStorage si el inicio de sesión fue exitoso
+    if (data && data.userId) {
+      localStorage.setItem("userId", data.userId); // Almacena el ID en localStorage
+      console.log(`Se inició sesión correctamente y el ID es ${data.userId}`);
+      window.location.href = "/"; // NO SE DEBE CAMBIAR LA RUTA
+    }
+  }).catch((error) => {
+    console.error("Error de red:", error);
+    alert("Error de red. Por favor, inténtalo de nuevo más tarde.");
   });
 });

@@ -10,18 +10,20 @@ import { navbar } from "./components/navbar";
 import { hero } from "./components/hero";
 import { services } from "./components/services";
 
+
 // Obtener el elemento raíz del DOM donde se montarán los componentes
 const $root = document.getElementById("root");
-
+const userId = localStorage.getItem("userId");
 // Realizar una solicitud para obtener la sesión del usuario actual
-await fetch("http://localhost:4321/auth/me", {})
+await fetch(`http://localhost:4321/auth/me/${userId}`)
   .then((response) => {
-    // Verificar si la respuesta es exitosa
     if (response.ok) {
-      return response.json(); // Convertir la respuesta a JSON
-    } else {
-      return null; // Devolver null si la respuesta no es exitosa
-    }
+      const data = response.json();
+      return { 
+        valid: true, 
+        userId: data.userId,
+        username: data.username // Cambiado de userName a username
+     }}
   })
   .then((session) => {
     // Añadir el componente de la barra de navegación al elemento raíz

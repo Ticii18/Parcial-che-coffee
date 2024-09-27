@@ -7,7 +7,7 @@
 
 ### Acciones a Realizar
 
-- [ ] (5 puntos) Realizar la lógica para la creación de un nuevo usuario en la página de registro.
+- [ x ] (5 puntos) Realizar la lógica para la creación de un nuevo usuario en la página de registro.
 - [ ] (5 puntos) Implementar envío de credenciales en `todas` las solicitudes al servidor.
 - [ ] (5 puntos) Implementar la lógica para el cierre de sesión de usuarios en el botón de logout.
 - [ ] (5 puntos) Implementar la lógica para la creación de una nueva orden.

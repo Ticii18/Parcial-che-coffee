@@ -17,6 +17,6 @@
   "dependencies": {
     "aos": "^2.3.4",
     "slick-carousel": "^1.8.1",
-    "sweetalert2": "^11.14.1"
+    "sweetalert2": "^11.6.13"
   }
 }
